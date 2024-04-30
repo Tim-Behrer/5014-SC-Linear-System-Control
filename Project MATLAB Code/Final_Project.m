@@ -86,7 +86,7 @@ simulate_response(sys_closedLoop,[],1) %Simulate just closed loop
 simulate_response(sys_uncontrolled,sys_closedLoop,2) %Simulate uncontrolled and closed loop
 %% Desiging qnd Evaluating the Observer
 des_freq = 10*real(desired_poles_1);
-q = [des_freq,des_freq,des_freq+imag(desired_poles_1),des_freq-imag(desired_poles_1),des_freq+imag(desired_poles_2),des_freq-imag(desired_poles_2)]; % desired poles
+q = [des_freq,des_freq,des_freq+(1*imag(desired_poles_1)),des_freq-(1*imag(desired_poles_1)),des_freq+(1*imag(desired_poles_2)),des_freq-(1*imag(desired_poles_2))]; % desired poles
 L = place(A',C',q)'; 
 A_obs = A-(L*C);
 B_obs = zeros(size(B));
@@ -94,7 +94,7 @@ C_obs = eye(size(A_obs));
 D_obs = zeros(size(B));
 obs_sys = ss(A_obs,B_obs,C_obs,D_obs);
 einit = [1;1;1;1;1;1];
-[error,tOut] = initial(obs_sys,einit);
+[error,tOut] = initial(obs_sys,einit,400);
 figure
 sgtitle('Observer Error vs. Time')
 % positions
