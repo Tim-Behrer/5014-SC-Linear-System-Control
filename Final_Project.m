@@ -86,6 +86,5 @@ simulate_response(sys_closedLoop,[],1) %Simulate just closed loop
 simulate_response(sys_uncontrolled,sys_closedLoop,2) %Simulate uncontrolled and closed loop
 %% Desiging the Observer
 des_freq = 10*real(desired_poles_1);
-
 q = [des_freq;des_freq;des_freq+imag(desired_poles_1);des_freq-imag(desired_poles_1);des_freq+imag(desired_poles_2);des_freq-imag(desired_poles_2)]; % desired poles
 L = place(A',C',q); 
