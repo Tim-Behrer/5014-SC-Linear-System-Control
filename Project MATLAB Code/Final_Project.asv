@@ -96,36 +96,36 @@ obs_sys = ss(A_obs,B_obs,C_obs,D_obs);
 einit = [1;1;1;1;1;1];
 [error,tOut] = initial(obs_sys,einit);
 figure
-sgtitle('Observer Error vs. Time')
+sgtitle('observer Error vs. Time')
 % positions
-subplot(2,3,1);
-plot(tOut,error(:,1),'-b','LineWidth',1.2);
+subplot(3,2,1);
+plot(error(:,1),tOut,'-b','LineWidth',1.2);
 grid on;
 xlabel('time (s)');
 ylabel('$e_{x}$','interpreter','latex')
-subplot(2,3,2);
-plot(tOut,error(:,2),'-r','LineWidth',1.2);
+subplot(3,2,2);
+plot(error(:,2),tOut,'-r','LineWidth',1.2);
 grid on;
 xlabel('time (s)');
 ylabel('$e_{y}$','interpreter','latex')
-subplot(2,3,3);
-plot(tOut,error(:,3),'-k','LineWidth',1.2);
+subplot(3,3,3);
+plot(error(:,3),tOut,'-k','LineWidth',1.2);
 grid on;
 xlabel('time (s)');
 ylabel('$e_{x}$','interpreter','latex')
 % velocities 
-subplot(2,3,4);
-plot(tOut,error(:,4),'--b','LineWidth',1.2);
+subplot(3,3,4);
+plot(error(:,4),tOut,'--b','LineWidth',1.2);
 grid on;
 xlabel('time (s)');
 ylabel('$e_{\dot{x}}$','interpreter','latex')
-subplot(2,3,5);
-plot(tOut,error(:,5),'--r','LineWidth',1.2);
+subplot(3,3,5);
+plot(error(:,5),tOut,'--r','LineWidth',1.2);
 grid on;
 xlabel('time (s)');
 ylabel('$e_{\dot{y}}$','interpreter','latex')
-subplot(2,3,6);
-plot(tOut,error(:,6),'--k','LineWidth',1.2);
+subplot(3,3,6);
+plot(error(:,6),tOut,'--k','LineWidth',1.2);
 grid on;
 xlabel('time (s)');
 ylabel('$e_{\dot{z}}$','interpreter','latex')
