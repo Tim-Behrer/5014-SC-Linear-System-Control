@@ -1,7 +1,7 @@
 %% Header
 % ASEN 5014, Linear Control Systems
 % Final Project
-% Author: Downey, Ryan
+% Author:
 % Date Last Modified: 05/01/24 [mm/dd/yy]
 % NOTE: 
 %   - This final project is the analysis and design for the spacraft flying
