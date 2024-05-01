@@ -85,9 +85,9 @@ sys_closedLoop = ss(A_cl,B_cl,C_cl,D_cl);
 simulate_response(sys_closedLoop,[],1) %Simulate just closed loop
 simulate_response(sys_uncontrolled,sys_closedLoop,2) %Simulate uncontrolled and closed loop
 %% Desiging qnd Evaluating the Observer
-des_freq = 10*real(desired_poles_1);
-q = [des_freq,des_freq,des_freq+(1*imag(desired_poles_1)),des_freq-(1*imag(desired_poles_1)),des_freq+(1*imag(desired_poles_2)),des_freq-(1*imag(desired_poles_2))]; % desired poles
-L = place(A',C',q)'; 
+des_freq = 10*-w_n;
+q_obs = [des_freq,des_freq,des_freq-(1i*imag(desired_poles_1)),des_freq-(1i*imag(desired_poles_1)),des_freq+(1i*imag(desired_poles_1)),des_freq+(1i*imag(desired_poles_1))]; % desired poles
+L = place(A',C',q_obs)'; 
 A_obs = A-(L*C);
 B_obs = zeros(size(B));
 C_obs = eye(size(A_obs));
@@ -95,37 +95,72 @@ D_obs = zeros(size(B));
 obs_sys = ss(A_obs,B_obs,C_obs,D_obs);
 einit = [1;1;1;1;1;1];
 [error,tOut] = initial(obs_sys,einit,400);
+for ii=1:6
+    check(ii) = find(abs(error(:,ii))<=0.05,1);
+    t_con_e(ii) = tOut(check(ii));
+end
+% outputting to command line
+fprintf('---|OBSERVER|---\n');
+fprintf('Average time to achieve 5%% positional error %0.3f s \n',mean(t_con_e(1:3)));
+fprintf('Average time to achieve 5%% derivative error %0.3f s \n',mean(t_con_e(4:6)));
+
+
+
 figure
 sgtitle('Observer Error vs. Time')
 % positions
 subplot(2,3,1);
+hold on;
 plot(tOut,error(:,1),'-b','LineWidth',1.2);
+xline(tOut(check(1)),'-m','LineWidth',1);
 grid on;
+legend('','5% Error Time');
+legend('Location','best');
 xlabel('time (s)');
 ylabel('$e_{x}$','interpreter','latex')
 subplot(2,3,2);
+hold on;
 plot(tOut,error(:,2),'-r','LineWidth',1.2);
+xline(tOut(check(2)),'-m','LineWidth',1);
 grid on;
+legend('','5% Error Time');
+legend('Location','best');
 xlabel('time (s)');
 ylabel('$e_{y}$','interpreter','latex')
 subplot(2,3,3);
+hold on;
 plot(tOut,error(:,3),'-k','LineWidth',1.2);
+xline(tOut(check(3)),'-m','LineWidth',1);
 grid on;
+legend('','5% Error Time');
+legend('Location','best');
 xlabel('time (s)');
-ylabel('$e_{x}$','interpreter','latex')
+ylabel('$e_{z}$','interpreter','latex')
 % velocities 
 subplot(2,3,4);
+hold on;
 plot(tOut,error(:,4),'--b','LineWidth',1.2);
+xline(tOut(check(4)),'-m','LineWidth',1);
 grid on;
+legend('','5% Error Time');
+legend('Location','best');
 xlabel('time (s)');
-ylabel('$e_{\dot{x}}$','interpreter','latex')
+ylabel('$\dot{e_{x}}$','interpreter','latex')
 subplot(2,3,5);
+hold on;
 plot(tOut,error(:,5),'--r','LineWidth',1.2);
+xline(tOut(check(5)),'-m','LineWidth',1);
 grid on;
+legend('','5% Error Time');
+legend('Location','best');
 xlabel('time (s)');
-ylabel('$e_{\dot{y}}$','interpreter','latex')
+ylabel('$\dot{e_{y}}$','interpreter','latex')
 subplot(2,3,6);
+hold on;
 plot(tOut,error(:,6),'--k','LineWidth',1.2);
+xline(tOut(check(6)),'-m','LineWidth',1);
 grid on;
+legend('','5% Error Time');
+legend('Location','best');
 xlabel('time (s)');
-ylabel('$e_{\dot{z}}$','interpreter','latex')
+ylabel('$\dot{e_{z}}$','interpreter','latex')
