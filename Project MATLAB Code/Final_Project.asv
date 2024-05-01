@@ -82,15 +82,15 @@ C_cl = C;
 D_cl = D;
 %% Closed Loop system response
 sys_closedLoop = ss(A_cl,B_cl,C_cl,D_cl);
-simulate_response(sys_closedLoop,[],1); %Simulate just closed loop
-simulate_response(sys_uncontrolled,sys_closedLoop,2); %Simulate uncontrolled and closed loop
+simulate_response(sys_closedLoop,[],1) %Simulate just closed loop
+simulate_response(sys_uncontrolled,sys_closedLoop,2) %Simulate uncontrolled and closed loop
 %% Desiging the Observer
 des_freq = 10*real(desired_poles_1);
 q = [des_freq;des_freq;des_freq+imag(desired_poles_1);des_freq-imag(desired_poles_1);des_freq+imag(desired_poles_2);des_freq-imag(desired_poles_2)]; % desired poles
 L = place(A',C',q); 
 
 
-%% Cost Function Development
+%% Cost Fucntion Development
 Q = eye(6).*[3 5 3 1 1 1];
 R = 10*Q(1:3,1:3);
 
@@ -102,5 +102,5 @@ B_opt = B*F_opt;
 C_opt = C;
 D_opt = D;
 sys_opt = ss(A_opt,B_opt,C_opt,D_opt);
-[SI1, ~] = simulate_response(sys_opt,[],1);
-[SI1, SI2] = simulate_response(sys_opt,sys_closedLoop,2);
+
+simulate_response(sys_opt,,1)
