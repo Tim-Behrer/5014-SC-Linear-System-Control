@@ -82,6 +82,7 @@ C_cl = C;
 D_cl = D;
 %% Closed Loop system response
 sys_closedLoop = ss(A_cl,B_cl,C_cl,D_cl);
+
 simulate_response(sys_closedLoop,[],1) %Simulate just closed loop
 simulate_response(sys_uncontrolled,sys_closedLoop,2) %Simulate uncontrolled and closed loop
 %% Desiging qnd Evaluating the Observer
@@ -164,3 +165,19 @@ legend('','5% Error Time');
 legend('Location','best');
 xlabel('time (s)');
 ylabel('$\dot{e_{z}}$','interpreter','latex')
+
+
+%% Cost Function Development
+Q = eye(6).*[3 5 3 1 1 1];
+R = 10*Q(1:3,1:3);
+
+[K_opt,~,eig_opt] = lqr(sys_uncontrolled,Q,R,0);
+F_opt = (C*((-A+(B*K_opt))^-1)*B)^-1; % 'feed-forward' matrix
+% defining optimal loop system
+A_opt = A-(B*K_opt);
+B_opt = B*F_opt;
+C_opt = C;
+D_opt = D;
+sys_opt = ss(A_opt,B_opt,C_opt,D_opt);
+[SI1, ~] = simulate_response(sys_opt,[],1);
+[SI1, SI2] = simulate_response(sys_opt,sys_closedLoop,2);

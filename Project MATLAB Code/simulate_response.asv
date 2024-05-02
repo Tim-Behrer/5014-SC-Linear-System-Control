@@ -98,18 +98,18 @@ elseif n == 2
     fprintf('Cross-Track Gas Thruster Impact on Radial Position Settling Time = %d \n',SI2(1,3).SettlingTime);
     fprintf('---|Along-Track Position Output|---\n');
     fprintf('Radial Gas Thruster Impact on Along-Track Position Overshoot = %d %% \n',SI2(2,1).Overshoot);
-    fprintf('Along-Track Gas Thruster Impact on Along-Track Position Overshoot = %d %% \n',SI2(2,2).Overshoot);
-    fprintf('Cross-Track Gas Thruster Impact on Along-Track Position Overshoot = %d %% \n',SI2(2,3).Overshoot);
-    fprintf('Radial Gas Thruster Impact on Along-Track Position Settling Time = %d \n',SI2(2,1).SettlingTime);
-    fprintf('Along-Track Gas Thruster Impact on Along-Track Position Settling Time = %d \n',SI2(2,2).SettlingTime);
-    fprintf('Cross-Track Gas Thruster Impact on Along-Track Position Settling Time = %d \n',SI2(2,3).SettlingTime);
+    fprintf('Along-Track Gas Thruster Impact on Along-Track Position Overshoot = %d %% \n',SI1(2,2).Overshoot);
+    fprintf('Cross-Track Gas Thruster Impact on Along-Track Position Overshoot = %d %% \n',SI1(2,3).Overshoot);
+    fprintf('Radial Gas Thruster Impact on Along-Track Position Settling Time = %d \n',SI1(2,1).SettlingTime);
+    fprintf('Along-Track Gas Thruster Impact on Along-Track Position Settling Time = %d \n',SI1(2,2).SettlingTime);
+    fprintf('Cross-Track Gas Thruster Impact on Along-Track Position Settling Time = %d \n',SI1(2,3).SettlingTime);
     fprintf('---|Cross-Track Position Output|---\n');
-    fprintf('Radial Gas Thruster Impact on Cross-Track Position Overshoot = %d %% \n',SI2(3,1).Overshoot);
-    fprintf('Along-Track Gas Thruster Impact on Cross-Track Position Overshoot = %d %% \n',SI2(3,2).Overshoot);
-    fprintf('Cross-Track Gas Thruster Impact on Cross-Track Position Overshoot = %d %% \n',SI2(3,3).Overshoot);
-    fprintf('Radial Gas Thruster Impact on Cross-Track Position Settling Time = %d \n',SI2(3,1).SettlingTime);
-    fprintf('Along-Track Gas Thruster Impact on Cross-Track Position Settling Time = %d \n',SI2(3,2).SettlingTime);
-    fprintf('Cross-Track Gas Thruster Impact on Cross-Track Position Settling Time = %d \n',SI2(3,3).SettlingTime);
+    fprintf('Radial Gas Thruster Impact on Cross-Track Position Overshoot = %d %% \n',SI1(3,1).Overshoot);
+    fprintf('Along-Track Gas Thruster Impact on Cross-Track Position Overshoot = %d %% \n',SI1(3,2).Overshoot);
+    fprintf('Cross-Track Gas Thruster Impact on Cross-Track Position Overshoot = %d %% \n',SI1(3,3).Overshoot);
+    fprintf('Radial Gas Thruster Impact on Cross-Track Position Settling Time = %d \n',SI1(3,1).SettlingTime);
+    fprintf('Along-Track Gas Thruster Impact on Cross-Track Position Settling Time = %d \n',SI1(3,2).SettlingTime);
+    fprintf('Cross-Track Gas Thruster Impact on Cross-Track Position Settling Time = %d \n',SI1(3,3).SettlingTime);
 
 else
     fprintf("Error: Number of comparisons > 2")
