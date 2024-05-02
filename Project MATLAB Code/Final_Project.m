@@ -241,7 +241,7 @@ D_lqr = D;
 % simulating optimal System
 sys_opt = ss(A_lqr,B_lqr,C_lqr,D_lqr);
 [SI1, ~] = simulate_response(sys_opt,[],1);
-[SI1, SI2] = simulate_response(sys_opt,sys_closedLoop,2);
+% [SI1, SI2] = simulate_response(sys_opt,sys_closedLoop,2);
 t_lqr = (0:0.1:60)';
 u = r*ones(1,length(t_lqr));
 sys4 = ss(A_lqr,B_lqr,C_lqr,D_lqr);
