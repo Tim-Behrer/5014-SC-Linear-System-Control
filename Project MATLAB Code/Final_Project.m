@@ -122,6 +122,7 @@ A_cl = A-(B*K);
 B_cl = B*F;
 C_cl = C;
 D_cl = D;
+
 r = [5;5;5]; % desired refrence point 
 u = r*ones(1,length(t)); % making our desired refrence a point in time
 u(:,1:floor(length(t)/10)) = zeros(size(u(:,1:floor(length(t)/10))));
@@ -137,6 +138,13 @@ y_F = lsim(sys3,u,t,x0);
 create_plots(y_F,u',t,3,x0,r,'System Response u=-Kx+Fx');
 fprintf('Control Input u=Fr is NOT STABLE\n');
 fprintf('Control Input u=-Kx+Fr is STABLE\n');
+
+%% Closed Loop system response
+%sys_closedLoop = ss(A_cl,B_cl,C_cl,D_cl);
+
+%simulate_response(sys_closedLoop,[],1) %Simulate just closed loop
+%simulate_response(sys_uncontrolled,sys_closedLoop,2) %Simulate uncontrolled and closed loop
+
 %% Desiging qnd Evaluating the Observer
 des_freq = 10*-w_n;
 q_obs = [des_freq,des_freq,des_freq-(1i*imag(desired_poles_1)),des_freq-(1i*imag(desired_poles_1)),des_freq+(1i*imag(desired_poles_1)),des_freq+(1i*imag(desired_poles_1))]; % desired poles
@@ -215,7 +223,9 @@ legend('','5% Error Time');
 legend('Location','best');
 xlabel('time (s)');
 ylabel('$\dot{e_{z}}$','interpreter','latex')
+
 %% LQR System
+%% Cost Function Development
 % ---[simulating system without observer]--- 
 % determining ideal system 
 Q = diag([3,5,3,1,1,1]);
@@ -229,6 +239,9 @@ B_lqr = B*F_lqr;
 C_lqr = C;
 D_lqr = D;
 % simulating optimal System
+sys_opt = ss(A_lqr,B_lqr,C_lqr,D_lqr);
+[SI1, ~] = simulate_response(sys_opt,[],1);
+[SI1, SI2] = simulate_response(sys_opt,sys_closedLoop,2);
 t_lqr = (0:0.1:60)';
 u = r*ones(1,length(t_lqr));
 sys4 = ss(A_lqr,B_lqr,C_lqr,D_lqr);
